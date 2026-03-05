@@ -50,6 +50,11 @@ body {
   50% { box-shadow: 0 0 14px 5px rgba(16, 185, 129, 0.7); }
 }
 
+@keyframes expandLeft {
+  from { width: 80px; }
+  to { width: 288px; }
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;

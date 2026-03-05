@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   Landmark,
   Coins,
@@ -70,19 +71,33 @@ const incentivePrograms: IncentiveProgram[] = [
 
 function GovernanceCard() {
   return (
-    <div className="bg-card-bg border border-card-border hover:border-[#2a3a4e] transition-colors p-6 flex flex-col justify-between">
-      <div>
-        <div className="flex items-start justify-between mb-4">
-          <Landmark size={24} className="text-muted" />
-          <span className="text-xs font-mono tracking-widest bg-background border border-card-border px-3 py-1 text-muted">
-            LIVE PROPOSALS
-          </span>
+    <div className="bg-card-bg border border-card-border hover:border-[#2a3a4e] transition-colors p-6 flex flex-col min-h-[320px]">
+      <div className="flex items-start justify-between mb-4">
+        <Landmark size={24} className="text-muted" />
+        <span className="text-xs font-mono tracking-widest bg-background border border-card-border px-3 py-1 text-muted">
+          LIVE PROPOSALS
+        </span>
+      </div>
+      <div className="grid grid-cols-2 gap-6 flex-1">
+        <div className="flex flex-col justify-between">
+          <div>
+            <h3 className="text-lg font-normal mb-1" style={{ fontFamily: '"Surt Expanded"' }}>Governance</h3>
+            <p className="text-xs text-muted leading-snug">
+              Voting activity, delegate participation, proposal tracking, and quorum health.
+            </p>
+          </div>
+          <div className="flex gap-12 pt-4 border-t border-card-border">
+            <div>
+              <p className="text-xs font-mono tracking-widest text-muted mb-1">PROPOSALS</p>
+              <p className="text-2xl font-bold text-accent-blue">142</p>
+            </div>
+            <div>
+              <p className="text-xs font-mono tracking-widest text-muted mb-1">DELEGATES</p>
+              <p className="text-2xl font-bold text-accent-green">1,847</p>
+            </div>
+          </div>
         </div>
-        <h3 className="text-lg font-bold mb-1">Governance</h3>
-        <p className="text-sm text-muted leading-relaxed mb-6">
-          Voting activity, delegate participation, proposal tracking, and quorum health.
-        </p>
-        <div className="space-y-3">
+        <div className="flex flex-col justify-center space-y-3">
           {proposals.map((p, i) => (
             <div key={i}>
               <div className="flex items-center gap-2 mb-1">
@@ -113,65 +128,59 @@ function GovernanceCard() {
           ))}
         </div>
       </div>
-      <div className="flex gap-12 mt-6 pt-4 border-t border-card-border">
-        <div>
-          <p className="text-xs font-mono tracking-widest text-muted mb-1">PROPOSALS</p>
-          <p className="text-2xl font-bold text-accent-blue">142</p>
-        </div>
-        <div>
-          <p className="text-xs font-mono tracking-widest text-muted mb-1">DELEGATES</p>
-          <p className="text-2xl font-bold text-accent-green">1,847</p>
-        </div>
-      </div>
     </div>
   );
 }
 
 function FinancialsCard() {
   return (
-    <div className="bg-card-bg border border-card-border hover:border-[#2a3a4e] transition-colors p-6 flex flex-col justify-between relative overflow-hidden">
-      <div>
-        <div className="flex items-start justify-between mb-4">
-          <Coins size={24} className="text-muted" />
-          <span className="text-xs font-mono tracking-widest bg-background border border-card-border px-3 py-1 text-muted">
-            AUM OVER TIME
-          </span>
-        </div>
-        <h3 className="text-lg font-bold mb-1">Financials</h3>
-        <p className="text-sm text-muted leading-relaxed">
-          Treasury management, yield performance, AUM breakdown, and deployment tracking.
-        </p>
+    <div className="bg-card-bg border border-card-border hover:border-[#2a3a4e] transition-colors p-6 flex flex-col min-h-[320px] relative overflow-hidden">
+      <div className="flex items-start justify-between mb-4">
+        <Coins size={24} className="text-muted" />
+        <span className="text-xs font-mono tracking-widest bg-background border border-card-border px-3 py-1 text-muted">
+          AUM OVER TIME
+        </span>
       </div>
-      <div>
-        <div className="flex gap-12 mt-6 pt-4 border-t border-card-border">
+      <div className="grid grid-cols-2 gap-6 flex-1">
+        <div className="flex flex-col justify-between">
           <div>
-            <p className="text-xs font-mono tracking-widest text-muted mb-1">AUM</p>
-            <p className="text-2xl font-bold text-accent-blue">$90.4M</p>
+            <h3 className="text-lg font-normal mb-1" style={{ fontFamily: '"Surt Expanded"' }}>Financials</h3>
+            <p className="text-xs text-muted leading-snug">
+              Treasury management, yield performance, AUM breakdown, and deployment tracking.
+            </p>
           </div>
-          <div>
-            <p className="text-xs font-mono tracking-widest text-muted mb-1">30D APY</p>
-            <p className="text-2xl font-bold text-accent-green">3.94%</p>
+          <div className="flex gap-12 pt-4 border-t border-card-border">
+            <div>
+              <p className="text-xs font-mono tracking-widest text-muted mb-1">AUM</p>
+              <p className="text-2xl font-bold text-accent-blue">$90.4M</p>
+            </div>
+            <div>
+              <p className="text-xs font-mono tracking-widest text-muted mb-1">30D APY</p>
+              <p className="text-2xl font-bold text-accent-green">3.94%</p>
+            </div>
           </div>
         </div>
-        <div className="absolute bottom-0 right-0 w-48 h-24 opacity-50">
-          <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={financialsSparkData}>
-              <defs>
-                <linearGradient id="finGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#10b981" stopOpacity={0.3} />
-                  <stop offset="100%" stopColor="#10b981" stopOpacity={0} />
-                </linearGradient>
-              </defs>
-              <Area
-                type="monotone"
-                dataKey="v"
-                stroke="#10b981"
-                strokeWidth={2}
-                fill="url(#finGrad)"
-                dot={false}
-              />
-            </AreaChart>
-          </ResponsiveContainer>
+        <div className="flex items-end justify-end">
+          <div className="w-full h-24">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={financialsSparkData}>
+                <defs>
+                  <linearGradient id="finGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#10b981" stopOpacity={0.4} />
+                    <stop offset="100%" stopColor="#10b981" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <Area
+                  type="natural"
+                  dataKey="v"
+                  stroke="#10b981"
+                  strokeWidth={2}
+                  fill="url(#finGrad)"
+                  dot={false}
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       </div>
     </div>
@@ -180,49 +189,53 @@ function FinancialsCard() {
 
 function NetworkActivityCard() {
   return (
-    <div className="bg-card-bg border border-card-border hover:border-[#2a3a4e] transition-colors p-6 flex flex-col justify-between relative overflow-hidden">
-      <div>
-        <div className="flex items-start justify-between mb-4">
-          <Activity size={24} className="text-muted" />
-          <span className="text-xs font-mono tracking-widest bg-background border border-card-border px-3 py-1 text-muted">
-            DAILY TRANSACTIONS
-          </span>
-        </div>
-        <h3 className="text-lg font-bold mb-1">Network Activity</h3>
-        <p className="text-sm text-muted leading-relaxed">
-          Transaction volume, active addresses, gas usage, and L2 performance metrics.
-        </p>
+    <div className="bg-card-bg border border-card-border hover:border-[#2a3a4e] transition-colors p-6 flex flex-col min-h-[320px]">
+      <div className="flex items-start justify-between mb-4">
+        <Activity size={24} className="text-muted" />
+        <span className="text-xs font-mono tracking-widest bg-background border border-card-border px-3 py-1 text-muted">
+          DAILY TRANSACTIONS
+        </span>
       </div>
-      <div>
-        <div className="flex gap-12 mt-6 pt-4 border-t border-card-border">
+      <div className="grid grid-cols-2 gap-6 flex-1">
+        <div className="flex flex-col justify-between">
           <div>
-            <p className="text-xs font-mono tracking-widest text-muted mb-1">DAILY TCS</p>
-            <p className="text-2xl font-bold text-accent-cyan">1.2M</p>
+            <h3 className="text-lg font-normal mb-1" style={{ fontFamily: '"Surt Expanded"' }}>Network Activity</h3>
+            <p className="text-xs text-muted leading-snug">
+              Transaction volume, active addresses, gas usage, and L2 performance metrics.
+            </p>
           </div>
-          <div>
-            <p className="text-xs font-mono tracking-widest text-muted mb-1">ACTIVE ADDR.</p>
-            <p className="text-2xl font-bold text-accent-green">284K</p>
+          <div className="flex gap-12 pt-4 border-t border-card-border">
+            <div>
+              <p className="text-xs font-mono tracking-widest text-muted mb-1">DAILY TCS</p>
+              <p className="text-2xl font-bold text-accent-cyan">1.2M</p>
+            </div>
+            <div>
+              <p className="text-xs font-mono tracking-widest text-muted mb-1">ACTIVE ADDR.</p>
+              <p className="text-2xl font-bold text-accent-green">284K</p>
+            </div>
           </div>
         </div>
-        <div className="absolute bottom-0 right-0 w-48 h-24 opacity-50">
-          <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={networkSparkData}>
-              <defs>
-                <linearGradient id="netGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#06b6d4" stopOpacity={0.3} />
-                  <stop offset="100%" stopColor="#06b6d4" stopOpacity={0} />
-                </linearGradient>
-              </defs>
-              <Area
-                type="monotone"
-                dataKey="v"
-                stroke="#06b6d4"
-                strokeWidth={2}
-                fill="url(#netGrad)"
-                dot={false}
-              />
-            </AreaChart>
-          </ResponsiveContainer>
+        <div className="flex items-end justify-end">
+          <div className="w-full h-24">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={networkSparkData}>
+                <defs>
+                  <linearGradient id="netGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#06b6d4" stopOpacity={0.4} />
+                    <stop offset="100%" stopColor="#06b6d4" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <Area
+                  type="natural"
+                  dataKey="v"
+                  stroke="#06b6d4"
+                  strokeWidth={2}
+                  fill="url(#netGrad)"
+                  dot={false}
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       </div>
     </div>
@@ -231,19 +244,33 @@ function NetworkActivityCard() {
 
 function IncentivesCard() {
   return (
-    <div className="bg-card-bg border border-card-border hover:border-[#2a3a4e] transition-colors p-6 flex flex-col justify-between">
-      <div>
-        <div className="flex items-start justify-between mb-4">
-          <Target size={24} className="text-muted" />
-          <span className="text-xs font-mono tracking-widest bg-background border border-card-border px-3 py-1 text-muted">
-            ACTIVE PROGRAMS
-          </span>
+    <div className="bg-card-bg border border-card-border hover:border-[#2a3a4e] transition-colors p-6 flex flex-col min-h-[320px]">
+      <div className="flex items-start justify-between mb-4">
+        <Target size={24} className="text-muted" />
+        <span className="text-xs font-mono tracking-widest bg-background border border-card-border px-3 py-1 text-muted">
+          ACTIVE PROGRAMS
+        </span>
+      </div>
+      <div className="grid grid-cols-2 gap-6 flex-1">
+        <div className="flex flex-col justify-between">
+          <div>
+            <h3 className="text-lg font-normal mb-1" style={{ fontFamily: '"Surt Expanded"' }}>Incentives</h3>
+            <p className="text-xs text-muted leading-snug">
+              Grant programs, STIP/LTIPP tracking, distribution analytics, and ROI metrics.
+            </p>
+          </div>
+          <div className="flex gap-12 pt-4 border-t border-card-border">
+            <div>
+              <p className="text-xs font-mono tracking-widest text-muted mb-1">DISTRIBUTE</p>
+              <p className="text-2xl font-bold text-accent-yellow">$42.1M</p>
+            </div>
+            <div>
+              <p className="text-xs font-mono tracking-widest text-muted mb-1">PROGRAMS</p>
+              <p className="text-2xl font-bold text-accent-cyan">12</p>
+            </div>
+          </div>
         </div>
-        <h3 className="text-lg font-bold mb-1">Incentives</h3>
-        <p className="text-sm text-muted leading-relaxed mb-6">
-          Grant programs, STIP/LTIPP tracking, distribution analytics, and ROI metrics.
-        </p>
-        <div className="space-y-4">
+        <div className="flex flex-col justify-center space-y-4">
           {incentivePrograms.map((prog, i) => (
             <div key={i} className="bg-background p-3">
               <div className="flex justify-between items-center mb-2">
@@ -269,38 +296,64 @@ function IncentivesCard() {
           ))}
         </div>
       </div>
-      <div className="flex gap-12 mt-6 pt-4 border-t border-card-border">
-        <div>
-          <p className="text-xs font-mono tracking-widest text-muted mb-1">DISTRIBUTE</p>
-          <p className="text-2xl font-bold text-accent-yellow">$42.1M</p>
-        </div>
-        <div>
-          <p className="text-xs font-mono tracking-widest text-muted mb-1">PROGRAMS</p>
-          <p className="text-2xl font-bold text-accent-cyan">12</p>
-        </div>
-      </div>
     </div>
   );
 }
 
 export default function ExploreDashboards() {
+  const [activeFilter, setActiveFilter] = useState("30D");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
   return (
     <section className="px-6 py-6">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-3xl font-normal" style={{ fontFamily: '"Surt Expanded"' }}>Explore Dashboards</h2>
-        <div className="flex items-center gap-1 bg-card-bg border border-card-border p-1">
+        <div className="flex items-center gap-1">
           {timeFilters.map((f) => (
             <button
               key={f}
+              onClick={() => setActiveFilter(f)}
               className={`text-xs font-mono px-3 py-1 transition-colors ${
-                f === "30D"
-                  ? "bg-card-border text-white"
+                activeFilter === f
+                  ? "bg-white/5 text-white"
                   : "text-muted hover:text-white"
               }`}
             >
               {f}
             </button>
           ))}
+          <button
+            onClick={() => setActiveFilter(activeFilter === "DATE_RANGE" ? "30D" : "DATE_RANGE")}
+            className={`text-xs font-mono px-3 py-1 transition-colors ${
+              activeFilter === "DATE_RANGE"
+                ? "bg-white/5 text-white"
+                : "text-muted hover:text-white"
+            }`}
+          >
+            DATE RANGE
+          </button>
+          <div
+            className={`flex items-center gap-2 ml-2 overflow-hidden transition-all duration-300 ease-in-out ${
+              activeFilter === "DATE_RANGE" ? "max-w-xs opacity-100" : "max-w-0 opacity-0"
+            }`}
+          >
+              <input
+                type="text"
+                placeholder="MM/DD/YYYY"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                className="text-xs font-mono bg-white/5 border border-card-border px-3 py-1 text-white placeholder-muted w-28 outline-none focus:border-[#1e293b] transition-colors"
+              />
+              <span className="text-xs text-muted font-mono whitespace-nowrap">–</span>
+              <input
+                type="text"
+                placeholder="MM/DD/YYYY"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+                className="text-xs font-mono bg-white/5 border border-card-border px-3 py-1 text-white placeholder-muted w-28 outline-none focus:border-[#1e293b] transition-colors"
+              />
+          </div>
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4">

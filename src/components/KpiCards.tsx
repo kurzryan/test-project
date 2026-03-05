@@ -1,10 +1,61 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import {
   AreaChart,
   Area,
   ResponsiveContainer,
 } from "recharts";
+
+function TickerDigit({ digit, delay }: { digit: string; delay: number }) {
+  const [animated, setAnimated] = useState(false);
+  const isNumber = /[0-9]/.test(digit);
+  const num = parseInt(digit);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setAnimated(true), delay);
+    return () => clearTimeout(timer);
+  }, [delay]);
+
+  if (!isNumber) {
+    return <span className="inline-block">{digit}</span>;
+  }
+
+  return (
+    <span className="inline-block h-[1.2em] overflow-hidden relative" style={{ width: "0.65em" }}>
+      <span
+        className="inline-flex flex-col transition-transform duration-[1.4s] ease-out"
+        style={{
+          transform: animated
+            ? `translateY(-${num * 10}%)`
+            : "translateY(0%)",
+        }}
+      >
+        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => (
+          <span key={n} className="h-[1.2em] flex items-center justify-center">
+            {n}
+          </span>
+        ))}
+      </span>
+    </span>
+  );
+}
+
+function TickerValue({ value }: { value: string }) {
+  const chars = value.split("");
+  const digitIndices: number[] = [];
+  chars.forEach((c, i) => { if (/[0-9]/.test(c)) digitIndices.push(i); });
+
+  return (
+    <span className="inline-flex">
+      {chars.map((char, i) => {
+        const digitOrder = digitIndices.indexOf(i);
+        const delay = digitOrder >= 0 ? digitOrder * 250 + 300 : 0;
+        return <TickerDigit key={i} digit={char} delay={delay} />;
+      })}
+    </span>
+  );
+}
 
 const sparkData1 = [
   { v: 82 }, { v: 84 }, { v: 83 }, { v: 86 }, { v: 85 }, { v: 87 },
@@ -41,7 +92,9 @@ function KpiCard({ label, value, subtitle, sparkData, color, borderColor }: KpiC
       <p className="text-xs font-mono tracking-widest text-muted mb-2 uppercase">
         {label}
       </p>
-      <p className="text-3xl font-normal mb-1" style={{ fontFamily: '"Surt Expanded"' }}>{value}</p>
+      <p className="text-3xl font-normal mb-1" style={{ fontFamily: '"Surt Expanded"' }}>
+        <TickerValue value={value} />
+      </p>
       {subtitle && (
         <p className="text-xs text-muted">{subtitle}</p>
       )}

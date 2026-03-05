@@ -1,6 +1,5 @@
 import StatusBar from "@/components/StatusBar";
 import Navbar from "@/components/Navbar";
-import SearchBar from "@/components/SearchBar";
 import HeroSection from "@/components/HeroSection";
 import KpiCards from "@/components/KpiCards";
 import QuickLinks from "@/components/QuickLinks";
@@ -14,7 +13,6 @@ export default function Home() {
       <StatusBar />
       <Navbar />
       <main className="max-w-7xl mx-auto">
-        <SearchBar />
         <HeroSection />
         <KpiCards />
         <QuickLinks />
