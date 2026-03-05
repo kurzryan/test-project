@@ -6,6 +6,7 @@ import {
   Coins,
   Activity,
   Target,
+  X,
 } from "lucide-react";
 import {
   AreaChart,
@@ -323,19 +324,17 @@ export default function ExploreDashboards() {
               {f}
             </button>
           ))}
-          <button
-            onClick={() => setActiveFilter(activeFilter === "DATE_RANGE" ? "30D" : "DATE_RANGE")}
-            className={`text-xs font-mono px-3 py-1 transition-colors ${
-              activeFilter === "DATE_RANGE"
-                ? "bg-white/5 text-white"
-                : "text-muted hover:text-white"
-            }`}
-          >
-            DATE RANGE
-          </button>
+          {activeFilter !== "DATE_RANGE" && (
+            <button
+              onClick={() => setActiveFilter("DATE_RANGE")}
+              className="text-xs font-mono px-3 py-1 transition-colors text-muted hover:text-white"
+            >
+              DATE RANGE
+            </button>
+          )}
           <div
             className={`flex items-center gap-2 ml-2 overflow-hidden transition-all duration-300 ease-in-out ${
-              activeFilter === "DATE_RANGE" ? "max-w-xs opacity-100" : "max-w-0 opacity-0"
+              activeFilter === "DATE_RANGE" ? "max-w-sm opacity-100" : "max-w-0 opacity-0"
             }`}
           >
               <input
@@ -353,6 +352,12 @@ export default function ExploreDashboards() {
                 onChange={(e) => setEndDate(e.target.value)}
                 className="text-xs font-mono bg-white/5 border border-card-border px-3 py-1 text-white placeholder-muted w-28 outline-none focus:border-[#1e293b] transition-colors"
               />
+              <button
+                onClick={() => setActiveFilter("30D")}
+                className="bg-white/5 border border-card-border text-white hover:text-white flex items-center justify-center w-[26px] h-[26px] shrink-0 transition-colors"
+              >
+                <X size={12} />
+              </button>
           </div>
         </div>
       </div>
