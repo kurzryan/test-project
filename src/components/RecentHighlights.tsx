@@ -39,7 +39,7 @@ export default function RecentHighlights() {
   return (
     <section className="px-6 py-6">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-3xl font-bold italic">Recent Highlights</h2>
+        <h2 className="text-3xl font-normal" style={{ fontFamily: '"Surt Expanded"' }}>Recent Highlights</h2>
         <button className="text-xs font-mono tracking-widest border border-card-border px-4 py-2 text-muted hover:text-white transition-colors">
           VIEW ALL
         </button>
@@ -48,7 +48,7 @@ export default function RecentHighlights() {
         {highlights.map((h, i) => (
           <div
             key={i}
-            className="bg-card-bg border border-card-border p-5 hover:border-muted transition-colors"
+            className="bg-card-bg border border-card-border p-5 hover:border-[#2a3a4e] transition-colors"
           >
             <div className="flex items-center justify-between mb-3">
               <span

@@ -70,7 +70,7 @@ const incentivePrograms: IncentiveProgram[] = [
 
 function GovernanceCard() {
   return (
-    <div className="bg-card-bg border border-card-border p-6 flex flex-col justify-between">
+    <div className="bg-card-bg border border-card-border hover:border-[#2a3a4e] transition-colors p-6 flex flex-col justify-between">
       <div>
         <div className="flex items-start justify-between mb-4">
           <Landmark size={24} className="text-muted" />
@@ -129,7 +129,7 @@ function GovernanceCard() {
 
 function FinancialsCard() {
   return (
-    <div className="bg-card-bg border border-card-border p-6 flex flex-col justify-between relative overflow-hidden">
+    <div className="bg-card-bg border border-card-border hover:border-[#2a3a4e] transition-colors p-6 flex flex-col justify-between relative overflow-hidden">
       <div>
         <div className="flex items-start justify-between mb-4">
           <Coins size={24} className="text-muted" />
@@ -180,7 +180,7 @@ function FinancialsCard() {
 
 function NetworkActivityCard() {
   return (
-    <div className="bg-card-bg border border-card-border p-6 flex flex-col justify-between relative overflow-hidden">
+    <div className="bg-card-bg border border-card-border hover:border-[#2a3a4e] transition-colors p-6 flex flex-col justify-between relative overflow-hidden">
       <div>
         <div className="flex items-start justify-between mb-4">
           <Activity size={24} className="text-muted" />
@@ -231,7 +231,7 @@ function NetworkActivityCard() {
 
 function IncentivesCard() {
   return (
-    <div className="bg-card-bg border border-card-border p-6 flex flex-col justify-between">
+    <div className="bg-card-bg border border-card-border hover:border-[#2a3a4e] transition-colors p-6 flex flex-col justify-between">
       <div>
         <div className="flex items-start justify-between mb-4">
           <Target size={24} className="text-muted" />
@@ -287,7 +287,7 @@ export default function ExploreDashboards() {
   return (
     <section className="px-6 py-6">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-3xl font-bold">Explore Dashboards</h2>
+        <h2 className="text-3xl font-normal" style={{ fontFamily: '"Surt Expanded"' }}>Explore Dashboards</h2>
         <div className="flex items-center gap-1 bg-card-bg border border-card-border p-1">
           {timeFilters.map((f) => (
             <button

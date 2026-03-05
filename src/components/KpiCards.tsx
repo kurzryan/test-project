@@ -26,45 +26,47 @@ const sparkData4 = [
 interface KpiCardProps {
   label: string;
   value: string;
-  subtitle?: string;
-  sparkData: { v: number }[];
-  color: string;
+  subtitle?: React.ReactNode;
+  sparkData?: { v: number }[];
+  color?: string;
   borderColor: string;
 }
 
 function KpiCard({ label, value, subtitle, sparkData, color, borderColor }: KpiCardProps) {
   return (
     <div
-      className="bg-card-bg p-5 flex-1 min-w-0 relative overflow-hidden"
+      className="bg-card-bg p-5 flex-1 min-w-0 relative overflow-hidden border border-transparent hover:border-[#1e293b] transition-colors"
       style={{ borderLeft: `3px solid ${borderColor}` }}
     >
       <p className="text-xs font-mono tracking-widest text-muted mb-2 uppercase">
         {label}
       </p>
-      <p className="text-3xl font-bold mb-1">{value}</p>
+      <p className="text-3xl font-normal mb-1" style={{ fontFamily: '"Surt Expanded"' }}>{value}</p>
       {subtitle && (
         <p className="text-xs text-muted">{subtitle}</p>
       )}
-      <div className="absolute bottom-0 right-0 w-32 h-16 opacity-60">
-        <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={sparkData}>
-            <defs>
-              <linearGradient id={`grad-${label}`} x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor={color} stopOpacity={0.3} />
-                <stop offset="100%" stopColor={color} stopOpacity={0} />
-              </linearGradient>
-            </defs>
-            <Area
-              type="monotone"
-              dataKey="v"
-              stroke={color}
-              strokeWidth={2}
-              fill={`url(#grad-${label})`}
-              dot={false}
-            />
-          </AreaChart>
-        </ResponsiveContainer>
-      </div>
+      {sparkData && color && (
+        <div className="absolute bottom-3 right-4 w-28 h-16">
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart data={sparkData}>
+              <defs>
+                <linearGradient id={`grad-${label.replace(/\s+/g, "-")}`} x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor={color} stopOpacity={0.4} />
+                  <stop offset="100%" stopColor={color} stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <Area
+                type="natural"
+                dataKey="v"
+                stroke={color}
+                strokeWidth={2}
+                fill={`url(#grad-${label.replace(/\s+/g, "-")})`}
+                dot={false}
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+      )}
     </div>
   );
 }
@@ -75,7 +77,7 @@ export default function KpiCards() {
       <KpiCard
         label="Treasury AUM"
         value="$90.4M"
-        subtitle="+3.94% 30D APY"
+        subtitle={<><span className="font-semibold" style={{ color: "#10b981" }}>+3.94%</span> 30D APY</>}
         sparkData={sparkData1}
         color="#10b981"
         borderColor="#10b981"
@@ -84,14 +86,12 @@ export default function KpiCards() {
         label="Active Proposals"
         value="7"
         subtitle="3 currently in voting"
-        sparkData={sparkData2}
-        color="#8b5cf6"
         borderColor="#8b5cf6"
       />
       <KpiCard
         label="Daily Transactions"
         value="$1.2M"
-        subtitle="+8.3% 7D"
+        subtitle={<><span className="font-semibold" style={{ color: "#06b6d4" }}>+8.3%</span> 7D</>}
         sparkData={sparkData3}
         color="#06b6d4"
         borderColor="#06b6d4"
@@ -100,8 +100,6 @@ export default function KpiCards() {
         label="Incentives Distributed"
         value="$42.1M"
         subtitle="YTD"
-        sparkData={sparkData4}
-        color="#f59e0b"
         borderColor="#f59e0b"
       />
     </div>
